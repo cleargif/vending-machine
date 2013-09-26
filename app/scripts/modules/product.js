@@ -1,16 +1,16 @@
 define(['backbone', 'modules/app'], function(Backbone, App) {
 
-   var Product = {};
+  var Product = {};
 
-    Product.Model = Backbone.Model.extend({
+  Product.Model = Backbone.Model.extend({
 
-    });
-    Product.Collection = Backbone.Collection.extend({
-      model: Product.Model,
-      initialize: function(){
-        console.log(arguments)
-      }
-    });
+  });
+  Product.Collection = Backbone.Collection.extend({
+    model: Product.Model,
+    initialize: function() {
+      console.log(arguments);
+    }
+  });
 
   return Product;
 });

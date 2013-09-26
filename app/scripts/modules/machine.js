@@ -4,16 +4,16 @@ define(['backbone'], function(Backbone) {
 
   Machine.ProductsView = Backbone.View.extend({
     el: '#machine',
-    initialize: function(){
+    initialize: function() {
       var _products = [];
-      this.collection.each(function(data){
+      this.collection.each(function(data) {
         _products.push(new Machine.ProductView({
           model: data
         }).el);
       });
       this.render(_products);
     },
-    render: function(elem){
+    render: function(elem) {
       this.$el.append(elem);
       return this;
     }
@@ -21,13 +21,21 @@ define(['backbone'], function(Backbone) {
 
   Machine.ProductView = Backbone.View.extend({
     tagName: 'li',
-    template: _.template('<%= name %> // quantity: <%= quantity %> capacity: <%= capacity %>'),
-    initialize: function(){
+    events: {
+      'click button': 'selectProduct'
+    },
+    template: _.template('<%= name %> // quantity: <%= quantity %> capacity: <%= capacity %> <button id="<%= id %>">Buy</button>'),
+    initialize: function() {
       this.render();
     },
-    render: function(){
+    render: function() {
       this.$el.append(this.template(this.model.toJSON()));
       return this;
+    },
+    selectProduct: function(e) {
+      e.preventDefault();
+      $(e.currentTarget).html('Clicked');
+      App.vent.trigger('selectProduct', $(e.currentTarget).attr('id'));
     }
   });
   return Machine;
