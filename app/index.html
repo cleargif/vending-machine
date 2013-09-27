@@ -6,14 +6,30 @@
     <title></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="css/style.css">
   </head>
 
   <body>
-    <ul id="machine"></ul>
+  <h1>Vending Machine</h1>
+    <div class="line">
+      <div class="unit size1of3">
+        <h2>The Machine</h2>
+        <ul id="machine" class="machine"></ul>
+      </div>
+      <div class="unit size1of3">
+        <h2>The Display</h2>
+        <div id="display" class="display"></div>
+      </div>
+      <div class="unit size1of3 lastUnit">
+        <h2>The Money</h2>
+        <ul id="coins" class="coins"></ul>
+      </div>
+    </div>
 
-    <div id="display"></div>
 
-    <ul id="coins"></ul>
+
+
+
      <script data-main="scripts/main" src="scripts/vendor/requirejs/require.js"></script>
   </body>
 </html>

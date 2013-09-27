@@ -14,7 +14,7 @@ define(['backbone'], function(Backbone) {
       this.render(_products);
     },
     render: function(elem) {
-      this.$el.append(elem);
+      this.$el.html(elem);
       return this;
     }
   });
@@ -24,18 +24,26 @@ define(['backbone'], function(Backbone) {
     events: {
       'click button': 'selectProduct'
     },
-    template: _.template('<%= name %> // quantity: <%= quantity %> capacity: <%= capacity %> <button id="<%= id %>">Buy</button>'),
+    template: _.template([
+      '<%= name %>',
+      '<span class="quantity">Q::<%= quantity %></span>',
+      '<span class="price">£ <%= price %></span>',
+      '<button class="buy" data-price="<%= price %>">Buy</button>'
+    ].join('\n')),
     initialize: function() {
+
+      this.model.on('change', this.render, this);
       this.render();
     },
     render: function() {
-      this.$el.append(this.template(this.model.toJSON()));
+
+      console.log(this.model.toJSON())
+      this.$el.html(this.template(this.model.toJSON()));
       return this;
     },
     selectProduct: function(e) {
       e.preventDefault();
-      $(e.currentTarget).html('Clicked');
-      App.vent.trigger('selectProduct', $(e.currentTarget).attr('id'));
+      App.vent.trigger('product:select', this.model);
     }
   });
   return Machine;

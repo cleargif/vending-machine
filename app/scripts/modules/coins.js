@@ -11,7 +11,10 @@ define(['backbone'], function(Backbone) {
 
   Coins.CoinView = Backbone.View.extend({
     tagName: 'li',
-    template: _.template('<button id="<%= id %>"><%= display %></button>'),
+    events: {
+      'click button' : 'addMoney'
+    },
+    template: _.template('<button data-value="<%= value %>"><%= display %></button>'),
     initialize: function() {
 
       this.render();
@@ -19,6 +22,12 @@ define(['backbone'], function(Backbone) {
     render: function() {
       this.$el.append(this.template(this.model.toJSON()));
       return this;
+    },
+    addMoney: function(e){
+      var _addMoneyValue;
+      e.preventDefault();
+      _addMoneyValue = $(e.currentTarget).data('value');
+      App.vent.trigger('money:add', _addMoneyValue);
     }
   });
   Coins.CoinsView = Backbone.View.extend({
